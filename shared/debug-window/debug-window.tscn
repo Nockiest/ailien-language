@@ -1,0 +1,30 @@
+[gd_scene load_steps=2 format=3 uid="uid://7i2s2qp0nlea"]
+
+[ext_resource type="Script" path="res://shared/debug-window/debug-window.gd" id="1_ytlis"]
+
+[node name="DebugWindow" type="CanvasLayer"]
+script = ExtResource("1_ytlis")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(100, 100)
+offset_right = 50.0
+offset_bottom = 100.0
+color = Color(1, 1, 1, 0.443137)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SelectedTileCoors" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="GridPosition" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+
+[node name="MousePosition" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+
+[node name="SelectedEntity" type="Label" parent="VBoxContainer"]
+layout_mode = 2

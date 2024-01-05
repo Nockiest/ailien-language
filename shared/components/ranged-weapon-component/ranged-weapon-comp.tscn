@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://bqygy5ngua5pb"]
+
+[ext_resource type="Script" path="res://shared/components/ranged-weapon-component/ranged-weapon-comp.gd" id="1_0623e"]
+[ext_resource type="PackedScene" uid="uid://dtyd3ib3ve340" path="res://shared/components/direction-handler-comp/direction-handler-comp.tscn" id="2_4luxg"]
+[ext_resource type="Texture2D" uid="uid://m5n3tvkes5am" path="res://assets/images/gun.png" id="2_ier0w"]
+
+[node name="RangedWeapon" type="Node2D"]
+script = ExtResource("1_0623e")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_ier0w")
+
+[node name="direction-handler-comp" parent="." instance=ExtResource("2_4luxg")]

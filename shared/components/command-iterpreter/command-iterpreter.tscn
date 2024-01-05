@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bxy2ot1nk41x1"]
+
+[ext_resource type="Script" path="res://shared/components/command-iterpreter/command-iterpreter.gd" id="1_did2k"]
+
+[node name="command-iterpreter" type="Node2D"]
+script = ExtResource("1_did2k")
+language_understanding = null

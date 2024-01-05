@@ -1,0 +1,35 @@
+[gd_scene load_steps=8 format=3 uid="uid://cngkyyaado21q"]
+
+[ext_resource type="Script" path="res://scenes/entity/entity.gd" id="1_ocgw1"]
+[ext_resource type="Texture2D" uid="uid://dusv1wgiw6h8" path="res://assets/images/icon.svg" id="2_fu7wo"]
+[ext_resource type="PackedScene" uid="uid://3u66hjuby3o6" path="res://shared/components/grid-position-tracker/grid-position-tracker.tscn" id="3_it771"]
+[ext_resource type="Script" path="res://scenes/entity/entity-state-machine.gd" id="4_ar34p"]
+[ext_resource type="Script" path="res://scenes/entity/entity-idle-state.gd" id="5_fnalx"]
+[ext_resource type="Script" path="res://scenes/entity/entity-selected-state.gd" id="6_wr2p7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xklo8"]
+size = Vector2(129, 129)
+
+[node name="entity" type="Area2D"]
+script = ExtResource("1_ocgw1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_fu7wo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 0.5)
+shape = SubResource("RectangleShape2D_xklo8")
+
+[node name="GridPositionTracker" parent="." instance=ExtResource("3_it771")]
+
+[node name="State_Machine" type="Node" parent="."]
+script = ExtResource("4_ar34p")
+
+[node name="Idle" type="Node" parent="State_Machine"]
+script = ExtResource("5_fnalx")
+
+[node name="Selected" type="Node" parent="State_Machine"]
+script = ExtResource("6_wr2p7")
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

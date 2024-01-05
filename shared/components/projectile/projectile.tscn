@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://dyabc67ttahlm"]
+
+[ext_resource type="Script" path="res://shared/components/projectile/projectile.gd" id="1_2w2db"]
+[ext_resource type="Texture2D" uid="uid://drlyehpvw63mo" path="res://assets/images/bullet.png" id="2_fggpp"]
+[ext_resource type="PackedScene" uid="uid://dtyd3ib3ve340" path="res://shared/components/direction-handler-comp/direction-handler-comp.tscn" id="3_rhb2y"]
+
+[node name="projectile" type="Node2D" node_paths=PackedStringArray("directionHandler")]
+script = ExtResource("1_2w2db")
+directionHandler = NodePath("direction-handler-comp")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_fggpp")
+
+[node name="direction-handler-comp" parent="." instance=ExtResource("3_rhb2y")]

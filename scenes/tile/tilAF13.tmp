@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=3 uid="uid://c0dh1bj2qrdik"]
+
+[ext_resource type="Script" path="res://scenes/tile/tile.gd" id="1_g44cj"]
+[ext_resource type="PackedScene" uid="uid://3u66hjuby3o6" path="res://shared/components/grid-position-tracker/grid-position-tracker.tscn" id="2_5csx2"]
+[ext_resource type="PackedScene" uid="uid://cekbll0jp5ddf" path="res://shared/components/entity-container/object-container.tscn" id="2_th8uv"]
+[ext_resource type="PackedScene" uid="uid://3mjla4smedx2" path="res://scenes/bordered-color-rectangle/bordered-color-rectangle.tscn" id="4_s753q"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fotma"]
+size = Vector2(40, 40)
+
+[node name="tile" type="Area2D" node_paths=PackedStringArray("position_tracker") groups=["tiles"]]
+script = ExtResource("1_g44cj")
+position_tracker = NodePath("GridPositionTracker")
+
+[node name="BorderedColorRect" parent="." instance=ExtResource("4_s753q")]
+border_width = 5.0
+
+[node name="GridPositionTracker" parent="." instance=ExtResource("2_5csx2")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(20, 20)
+shape = SubResource("RectangleShape2D_fotma")
+
+[node name="ObjectContainerManager" parent="." instance=ExtResource("2_th8uv")]
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

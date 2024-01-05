@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dq5r0dxebxidl"]
+
+[ext_resource type="Script" path="res://shared/components/movement_validator/movement_validator.gd" id="1_dg3i3"]
+
+[node name="MovementValidator" type="Node"]
+script = ExtResource("1_dg3i3")

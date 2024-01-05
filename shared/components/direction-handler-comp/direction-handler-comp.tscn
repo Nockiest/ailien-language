@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dtyd3ib3ve340"]
+
+[ext_resource type="Script" path="res://shared/components/direction-handler-comp/direction-handler-comp.gd" id="1_maa6r"]
+
+[node name="direction-handler-comp" type="Node"]
+script = ExtResource("1_maa6r")

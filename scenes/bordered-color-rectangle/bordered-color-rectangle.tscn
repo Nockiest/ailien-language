@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://3mjla4smedx2"]
+
+[ext_resource type="Script" path="res://scenes/bordered-color-rectangle/bordered-color-rectangle.gd" id="1_ijf68"]
+
+[node name="BorderedColorRect" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_ijf68")
+
+[node name="Border" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0, 0, 0, 1)
+
+[node name="Fill" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0

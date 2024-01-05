@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://cekbll0jp5ddf"]
+
+[ext_resource type="Script" path="res://shared/components/entity-container/object-container-manager.gd" id="1_4fxmv"]
+[ext_resource type="Script" path="res://shared/components/entity-container/object-container.gd" id="1_empy1"]
+
+[node name="ObjectContainerManager" type="Node2D"]
+script = ExtResource("1_4fxmv")
+
+[node name="ObjectContainer" type="Node2D" parent="."]
+script = ExtResource("1_empy1")

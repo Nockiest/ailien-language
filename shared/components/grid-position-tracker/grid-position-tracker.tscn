@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://3u66hjuby3o6"]
+
+[ext_resource type="Script" path="res://shared/components/grid-position-tracker/grid-position-tracker.gd" id="1_wc6vx"]
+
+[node name="GridPositionTracker" type="Node"]
+script = ExtResource("1_wc6vx")

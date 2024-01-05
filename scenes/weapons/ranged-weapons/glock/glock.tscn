@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://ctmgv44eflp4s"]
+
+[ext_resource type="PackedScene" uid="uid://bqygy5ngua5pb" path="res://shared/components/ranged-weapon-component/ranged-weapon-comp.tscn" id="1_7as1f"]
+[ext_resource type="Script" path="res://scenes/weapons/ranged-weapons/glock/glock.gd" id="1_abdwi"]
+[ext_resource type="PackedScene" uid="uid://dyabc67ttahlm" path="res://shared/components/projectile/projectile.tscn" id="2_djn1y"]
+
+[node name="Glock" instance=ExtResource("1_7as1f")]
+script = ExtResource("1_abdwi")
+projectile_scene_path = NodePath("projectile")
+
+[node name="Sprite2D" parent="." index="0"]
+scale = Vector2(0.5, 0.5)
+
+[node name="projectile" parent="." index="2" instance=ExtResource("2_djn1y")]
+visible = false

@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://csneymgfk28x5"]
+
+[ext_resource type="Script" path="res://scenes/structures/relic.gd" id="1_k24gb"]
+[ext_resource type="PackedScene" uid="uid://cbexd0wrvlivc" path="res://shared/components/collision-handler/collision-handler.tscn" id="2_ytxix"]
+[ext_resource type="Texture2D" uid="uid://6vjmm5qlu3lc" path="res://scenes/structures/relic.png" id="3_mub7x"]
+
+[node name="relic" type="Node2D" node_paths=PackedStringArray("collision_handler")]
+script = ExtResource("1_k24gb")
+collision_handler = NodePath("collision-handler")
+
+[node name="collision-handler" parent="." instance=ExtResource("2_ytxix")]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("3_mub7x")

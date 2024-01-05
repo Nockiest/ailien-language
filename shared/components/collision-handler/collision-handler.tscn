@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cbexd0wrvlivc"]
+
+[ext_resource type="Script" path="res://shared/components/collision-handler/collision-handler.gd" id="1_r7wr7"]
+
+[node name="collision-handler" type="Node2D"]
+script = ExtResource("1_r7wr7")
