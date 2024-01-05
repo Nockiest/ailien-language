@@ -1,70 +1,53 @@
-[gd_scene load_steps=13 format=3 uid="uid://cngkyyaado21q"]
+[gd_scene load_steps=11 format=3 uid="uid://cngkyyaado21q"]
 
+[ext_resource type="PackedScene" uid="uid://4h1neit2rfqq" path="res://shared/components/grid-object/grid-object.tscn" id="1_8ajsn"]
 [ext_resource type="Script" path="res://scenes/entity/entity.gd" id="1_ocgw1"]
-[ext_resource type="Texture2D" uid="uid://dusv1wgiw6h8" path="res://assets/images/icon.svg" id="2_fu7wo"]
 [ext_resource type="PackedScene" uid="uid://djape1yn3meth" path="res://shared/components/movement_component/movement-component.tscn" id="2_uoay6"]
-[ext_resource type="PackedScene" uid="uid://bnkur2kld0tc4" path="res://shared/components/death-component/death-component.tscn" id="2_wd22j"]
 [ext_resource type="PackedScene" uid="uid://bdcu3imq3e6t1" path="res://shared/components/health-component/health-component.tscn" id="3_lp4s4"]
 [ext_resource type="Script" path="res://scenes/entity/entity-state-machine.gd" id="4_ar34p"]
 [ext_resource type="Script" path="res://scenes/entity/entity-idle-state.gd" id="5_fnalx"]
 [ext_resource type="PackedScene" uid="uid://ctmgv44eflp4s" path="res://scenes/weapons/ranged-weapons/glock/glock.tscn" id="6_0dmby"]
 [ext_resource type="Script" path="res://scenes/entity/entity-selected-state.gd" id="6_wr2p7"]
 [ext_resource type="PackedScene" uid="uid://dtyd3ib3ve340" path="res://shared/components/direction-handler-comp/direction-handler-comp.tscn" id="10_l0evk"]
-[ext_resource type="PackedScene" uid="uid://cbexd0wrvlivc" path="res://shared/components/collision-handler/collision-handler.tscn" id="11_buwwm"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xklo8"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_18x4c"]
 size = Vector2(129, 128.5)
 
-[node name="entity" type="Area2D" node_paths=PackedStringArray("directionHandler", "stateMachine", "movementComponent", "healthComponent", "deathComponent", "weaponComponent", "collisionHandler") groups=["entity", "game_object"]]
+[node name="Entity" node_paths=PackedStringArray("directionHandler", "stateMachine", "movementComponent", "healthComponent", "weaponComponent") instance=ExtResource("1_8ajsn")]
 script = ExtResource("1_ocgw1")
 directionHandler = NodePath("direction-handler-comp")
 stateMachine = NodePath("State_Machine")
 movementComponent = NodePath("MovementComponent")
 healthComponent = NodePath("HealthComponent")
-deathComponent = NodePath("DeathComponent")
 weaponComponent = NodePath("WeaponSlot/Glock")
-collisionHandler = NodePath("collision-handler")
 
-[node name="DeathComponent" parent="." instance=ExtResource("2_wd22j")]
-
-[node name="MovementComponent" parent="." instance=ExtResource("2_uoay6")]
+[node name="MovementComponent" parent="." index="0" instance=ExtResource("2_uoay6")]
 valid_max_movement_range = 2.0
 
-[node name="HealthComponent" parent="." instance=ExtResource("3_lp4s4")]
+[node name="HealthComponent" parent="." index="1" instance=ExtResource("3_lp4s4")]
 max_hp = 2
 start_hp = 2
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_fu7wo")
-
-[node name="WeaponSlot" type="Node2D" parent="."]
+[node name="WeaponSlot" type="Node2D" parent="." index="2"]
 position = Vector2(-64, -1)
 
-[node name="Glock" parent="WeaponSlot" instance=ExtResource("6_0dmby")]
+[node name="Glock" parent="WeaponSlot" index="0" instance=ExtResource("6_0dmby")]
 position = Vector2(65, -61)
 rotation = 1.5708
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="3"]
 position = Vector2(0, 0.75)
-shape = SubResource("RectangleShape2D_xklo8")
+shape = SubResource("RectangleShape2D_18x4c")
 metadata/_edit_lock_ = true
 
-[node name="State_Machine" type="Node" parent="."]
+[node name="State_Machine" type="Node" parent="." index="4"]
 script = ExtResource("4_ar34p")
 initial_state = NodePath("Idle")
 
-[node name="Idle" type="Node" parent="State_Machine"]
+[node name="Idle" type="Node" parent="State_Machine" index="0"]
 script = ExtResource("5_fnalx")
 
-[node name="Selected" type="Node" parent="State_Machine"]
+[node name="Selected" type="Node" parent="State_Machine" index="1"]
 script = ExtResource("6_wr2p7")
 
-[node name="direction-handler-comp" parent="." instance=ExtResource("10_l0evk")]
-
-[node name="collision-handler" parent="." instance=ExtResource("11_buwwm")]
-collision_reaction = 0
-
-[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
-[connection signal="moved" from="MovementComponent" to="direction-handler-comp" method="_on_movement_component_moved"]
-[connection signal="health_ran_out" from="HealthComponent" to="." method="_on_health_component_health_ran_out"]
+[node name="direction-handler-comp" parent="." index="5" instance=ExtResource("10_l0evk")]
