@@ -2,7 +2,7 @@ class_name RangedWeapon
 extends Node2D
 
 @export var ammo_capacity := 10
-@export var range:int = 2
+@export var weapon_range:int = 2
 @export var projectile_scene_path: NodePath   # i will create a bullet scene
 @export var packed_projectile_scene: PackedScene = preload("res://shared/components/projectile/projectile.tscn")
 # The current active state. At the start of the game, we get the `initial_state`.
@@ -34,7 +34,7 @@ func spawn_bullet():
 	duplicated_node.show()
  
 	var entity = Utils.find_ancestor_by_factor(2, self)
-	var duplicated_bullet_direction = entity.directionHandler
+#	var duplicated_bullet_direction = entity.directionHandler
 	print(duplicated_node, duplicated_node is Projectile, 	Utils.find_ancestor_by_factor(5, self).get_node("ObjectContainerManager"))
 	Utils.find_ancestor_by_factor(5, self).get_node("ObjectContainerManager").add_child_node(duplicated_node)
 

@@ -1,5 +1,5 @@
 class_name Entity
-extends GridObject
+extends Area2D
 @export var directionHandler:DirectionHandler
 @export var stateMachine: StateMachine
 @export var movementComponent: MomvementComponent

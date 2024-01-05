@@ -6,8 +6,8 @@ signal objects_changed(objects)
 @export var max_objects: int = 1
 # Function to add a child node
 func recieve_child_node(child_node:Node):
- 
-	if    not is_full() :#is_within_limit and is_valid_type
+	print(child_node)
+	if    not is_full() :#is_within_limit and is_valid_typ
 		add_child(child_node)
 		emit_signal("objects_changed", get_children())
 	else:

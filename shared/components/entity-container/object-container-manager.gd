@@ -6,11 +6,12 @@ func add_child_node(node: Node) -> void:
 	$ObjectContainer.recieve_child_node(node)
 
 # Function to retrieve an object from the appropriate container
-func retrieve_object(container_type: String, object_name: String) -> Node:
+func retrieve_object(  object_name: String) -> Node:
 	# Retrieve the object from the container based on the name
+	print("retrieving ", object_name)
 	return $ObjectContainer  .retrieve_child_node_by_name(object_name)
 	
-func is_container_full(container_type: String) -> bool: 
+func is_container_full( ) -> bool: 
 	# Check if the container is empty
 	return $ObjectContainer  .is_full()
 	

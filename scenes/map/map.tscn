@@ -9,6 +9,8 @@
 script = ExtResource("1_lpdso")
 
 [node name="Grid" parent="." instance=ExtResource("1_k71r0")]
+relic_start_position = Vector2i(7, 7)
+enemies_starting_positons = Array[Vector2i]([Vector2i(2, 3), Vector2i(5, 4), Vector2i(3, 3)])
 
 [node name="DebugWindow" parent="." instance=ExtResource("3_xneli")]
 

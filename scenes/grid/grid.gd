@@ -2,17 +2,34 @@ class_name Grid
 extends Node2D
 
 var grid = []
+@export var relic_start_position:Vector2i = Vector2i(0,0)
+@export var enemies_starting_positons: Array[Vector2i]
 
 func _ready():
 	initialize_grid()
  
 func initialize_grid():
-	for y in range(Globals.grid_size.x):
+	for y in range(Globals.grid_size.y):
 		var row = []
-		for x in range( Globals.grid_size.y):
+		for x in range(Globals.grid_size.x):
 			var tile = create_tile(x, y)
 			row.append(tile)
+			
+			# Check if the current position is a relic starting position
+			if Vector2i(x, y) == relic_start_position:
+				
+				print_debug("instancing relic")
+				var relic = Globals.relic_scene.instantiate() as Relic
+				tile.get_node("ObjectContainerManager").add_child_node(relic)
+				
+			# Check if the current position is an enemy starting position
+			for enemy_position in enemies_starting_positons:
+				if Vector2i(x, y) == enemy_position:
+					var enemy = Globals.entity_scene.instantiate() as Entity
+					tile.get_node("ObjectContainerManager").add_child_node(enemy)
+
 		grid.append(row)
+
 
 func create_tile(x, y):
 	var tile = Globals.tile_scene.instantiate() as Area2D
@@ -29,9 +46,7 @@ func _on_tile_left_clicked(tile_position):
 	else:
 		Globals.selected_tile_coors = tile_position
 
-func place_relic_on_grid():
-	var tiles = get_tree().get_nodes_in_group("tiles")
-
+ 
 func move_entity_to_validated_position(from_container_coors, to_container_coors: Vector2i, entity: Entity)-> void:
 	# this function processes already validated moves
 #	print(entity,entity.positionTracker)

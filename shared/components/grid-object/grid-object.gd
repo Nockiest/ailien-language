@@ -1,5 +1,5 @@
 class_name GridObject
-extends Area2D
+extends Node2D
 
 
 # Called when the node enters the scene tree for the first time.

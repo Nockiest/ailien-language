@@ -2,7 +2,7 @@ class_name MovementtValidator
 extends Node
 
 # Function to validate the move
-func validate_move(from: Vector2i, to: Vector2i, validation_input_data: Dictionary, objectType:String="Entity") -> bool:
+func validate_move(from: Vector2i, to: Vector2i, validation_input_data: Dictionary,  ) -> bool:
 	# Extract data from the validation_input_data dictionary
 	var valid_max_movement_range = validation_input_data["valid_max_movement_range"]
 	var valid_movement_patterns = validation_input_data["valid_movement_patterns"]

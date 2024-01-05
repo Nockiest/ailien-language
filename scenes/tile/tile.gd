@@ -10,7 +10,7 @@ func _on_mouse_entered() -> void:
 
 func _ready() -> void:
 	resize(Globals.tile_size-  Globals.grid_gap)
-	add_entity_to_tile( )
+#	add_object_to_tile( Globals.entity_scene   )
 #
 func _process(_event) -> void:
 	var is_hovered =  Globals.hovered_tile_coors == $GridPositionTracker.get_grid_position()
@@ -29,10 +29,12 @@ func resize(size:Vector2i):
 	$CollisionShape2D.position = size / Vector2i(2,2) 
 
 
-func add_entity_to_tile( ):
-	if randf() <= 0.2:  # 20% chance
-		var entity = Globals.entity_scene.instantiate() as Node2D
-		$ObjectContainerManager.add_child_node(entity)
+func add_object_to_tile(object):
+#	Globals.entity_scene.instantiate() as Node2D
+#	if randf() <= 0.2:  # 20% chance
+	var entity = object.instantiate() as Area2D
+	print("adding entity ",entity)
+	$ObjectContainerManager.add_child_node(entity)
 
 func _on_entity_container_entities_changed(_new_size) -> void:
 	$BorderedColorRect/Fill.color = Color('red')

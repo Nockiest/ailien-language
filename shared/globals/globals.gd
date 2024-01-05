@@ -2,6 +2,7 @@ extends Node
 
 const tile_scene: PackedScene = preload("res://scenes/tile/tile.tscn")
 const entity_scene: PackedScene = preload("res://scenes/entity/entity.tscn")
+const relic_scene: PackedScene = preload("res://scenes/structures/relic.tscn")
 
 var tile_size: Vector2i = Vector2(64,64)
 var grid_size: Vector2i = Vector2(10,10)
