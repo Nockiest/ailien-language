@@ -8,3 +8,5 @@ script = ExtResource("1_4fxmv")
 
 [node name="ObjectContainer" type="Node2D" parent="."]
 script = ExtResource("1_empy1")
+
+[connection signal="objects_changed" from="ObjectContainer" to="." method="_on_object_container_objects_changed"]

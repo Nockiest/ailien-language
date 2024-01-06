@@ -1,7 +1,7 @@
 class_name Relic
 extends Area2D
 
-@export var collision_handler:CollisionHandler
+@export var collisionHandler:CollisionHandler
 # Called when the node enters the scene tree for the first time.
 var desired_size: Vector2 = Globals.tile_size
 func _ready() -> void:

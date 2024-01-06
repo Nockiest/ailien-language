@@ -33,7 +33,6 @@ func add_object_to_tile(object):
 #	Globals.entity_scene.instantiate() as Node2D
 #	if randf() <= 0.2:  # 20% chance
 	var entity = object.instantiate() as Area2D
-	print("adding entity ",entity)
 	$ObjectContainerManager.add_child_node(entity)
 
 func _on_entity_container_entities_changed(_new_size) -> void:

@@ -13,13 +13,13 @@ script = ExtResource("1_g44cj")
 position_tracker = NodePath("GridPositionTracker")
 objectContainerManager = NodePath("ObjectContainerManager")
 
-[node name="BorderedColorRect" parent="." instance=ExtResource("4_s753q")]
-
-[node name="GridPositionTracker" parent="." instance=ExtResource("2_5csx2")]
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(20, 20)
 shape = SubResource("RectangleShape2D_fotma")
+
+[node name="BorderedColorRect" parent="." instance=ExtResource("4_s753q")]
+
+[node name="GridPositionTracker" parent="." instance=ExtResource("2_5csx2")]
 
 [node name="ObjectContainerManager" parent="." instance=ExtResource("2_th8uv")]
 

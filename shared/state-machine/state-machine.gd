@@ -23,25 +23,6 @@ func init() -> void:
 		child.owner = get_parent()
 	state.enter()
 
-#	var initial_state_node = get_node_or_null(initial_state)
-#	if initial_state_node and initial_state_node is State:
-#		state = initial_state_node
-#	else:
-#		print("Error: Initial state is not defined or not a State instance.")
-#		# Here you could set a default state or handle the error
-#		state = get_node("Idle")  # This is a hypothetical function to set a default state
-#
-#	# Assign the state machine to each state
-#	for child in get_children():
-#		if child is State:
-#			print("adding statemachine to", child, get_node(initial_state))
-#			child.state_machine = self
-#
-#	print("Initial state:", state)
-#	state.enter()
- 
- 
-
 
 # The state machine subscribes to node callbacks and delegates them to the state objects.
 func _unhandled_input(event: InputEvent) -> void:

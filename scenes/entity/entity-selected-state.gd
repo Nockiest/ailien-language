@@ -31,3 +31,10 @@ func update(_delta):
 	
 
  
+
+
+func _on_movement_component_2_moved(from, to) -> void:
+	var aliens = get_tree().get_nodes_in_group("alien")
+	for alien in aliens:
+		alien.move_alien( ) 
+		state_machine.transition_to("Idle")

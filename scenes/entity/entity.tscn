@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dtxxl02lgw7jh"]
+[gd_scene load_steps=12 format=3 uid="uid://dtxxl02lgw7jh"]
 
 [ext_resource type="Script" path="res://scenes/entity/entity.gd" id="1_ocgw1"]
 [ext_resource type="PackedScene" uid="uid://bnkur2kld0tc4" path="res://shared/components/death-component/death-component.tscn" id="2_j4djh"]
@@ -6,45 +6,43 @@
 [ext_resource type="PackedScene" uid="uid://bdcu3imq3e6t1" path="res://shared/components/health-component/health-component.tscn" id="3_lp4s4"]
 [ext_resource type="Script" path="res://scenes/entity/entity-state-machine.gd" id="4_ar34p"]
 [ext_resource type="Script" path="res://scenes/entity/entity-idle-state.gd" id="5_fnalx"]
-[ext_resource type="PackedScene" uid="uid://ctmgv44eflp4s" path="res://scenes/weapons/ranged-weapons/glock/glock.tscn" id="6_0dmby"]
 [ext_resource type="PackedScene" uid="uid://cbexd0wrvlivc" path="res://shared/components/collision-handler/collision-handler.tscn" id="6_iw3ou"]
 [ext_resource type="Script" path="res://scenes/entity/entity-selected-state.gd" id="6_wr2p7"]
 [ext_resource type="Texture2D" uid="uid://dusv1wgiw6h8" path="res://assets/images/icon.svg" id="10_blm02"]
 [ext_resource type="PackedScene" uid="uid://dtyd3ib3ve340" path="res://shared/components/direction-handler-comp/direction-handler-comp.tscn" id="10_l0evk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qn35y"]
-size = Vector2(128, 128)
+size = Vector2(142, 127.5)
 
-[node name="Entity" type="Area2D" node_paths=PackedStringArray("directionHandler", "stateMachine", "movementComponent", "healthComponent", "deathComponent", "weaponComponent", "collisionHandler")]
+[node name="Entity" type="Area2D" node_paths=PackedStringArray("directionHandler", "stateMachine", "movementComponent", "healthComponent", "deathComponent", "collisionHandler")]
 script = ExtResource("1_ocgw1")
 directionHandler = NodePath("direction-handler-comp")
 stateMachine = NodePath("StateMachine")
 movementComponent = NodePath("MovementComponent")
 healthComponent = NodePath("HealthComponent")
 deathComponent = NodePath("DeathComponent")
-weaponComponent = NodePath("WeaponSlot/Glock")
 collisionHandler = NodePath("collision-handler")
 
 [node name="DeathComponent" parent="." instance=ExtResource("2_j4djh")]
 
 [node name="MovementComponent" parent="." instance=ExtResource("2_uoay6")]
+valid_max_movement_range = 3.0
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_lp4s4")]
 
 [node name="direction-handler-comp" parent="." instance=ExtResource("10_l0evk")]
 
 [node name="collision-handler" parent="." instance=ExtResource("6_iw3ou")]
+collision_reaction = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_qn35y")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-1.5, 0.5)
+scale = Vector2(1.13281, 1.02344)
 texture = ExtResource("10_blm02")
-
-[node name="WeaponSlot" type="Node2D" parent="."]
-
-[node name="Glock" parent="WeaponSlot" instance=ExtResource("6_0dmby")]
-position = Vector2(0, -64)
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource("4_ar34p")
@@ -55,3 +53,6 @@ script = ExtResource("5_fnalx")
 
 [node name="Selected" type="Node" parent="StateMachine"]
 script = ExtResource("6_wr2p7")
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

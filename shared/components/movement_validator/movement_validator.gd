@@ -14,6 +14,8 @@ func validate_move(from: Vector2i, to: Vector2i, validation_input_data: Dictiona
 	var movement_distance = movement_vector.length()
  
 	# Check if movement is within the valid range
+	if from == to:
+		return false
 	if movement_distance > valid_max_movement_range:
 		print("returning false")
 		return false

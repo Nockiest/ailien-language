@@ -4,8 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://cbexd0wrvlivc" path="res://shared/components/collision-handler/collision-handler.tscn" id="2_ytxix"]
 [ext_resource type="Texture2D" uid="uid://fuudnxs4np15" path="res://scenes/structures/open-treasure-chest.png" id="3_cb71b"]
 
-[node name="relic3" type="Area2D"]
+[node name="relic3" type="Area2D" node_paths=PackedStringArray("collisionHandler")]
 script = ExtResource("1_k24gb")
+collisionHandler = NodePath("collision-handler")
 
 [node name="collision-handler" parent="." instance=ExtResource("2_ytxix")]
 collision_reaction = 2

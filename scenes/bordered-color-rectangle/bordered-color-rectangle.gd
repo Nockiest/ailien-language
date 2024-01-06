@@ -3,6 +3,7 @@ extends Control
 
 @export var border_width: int = 2
 @export var rectangle_size: Vector2i = Globals.tile_size
+@export var fill_color: Color = Color("white")
 var border_visible: bool = true  # Track the visibility of the border
 
 func _ready() -> void:
@@ -15,6 +16,7 @@ func resize(new_size:Vector2i) -> void:
 	# Calculate and set the size and position of the inner rectangle
 	var fill_size = Utils.convert_to_normal_vector(new_size)  - Vector2(border_width * 2, border_width * 2)
 	$Fill.size = fill_size
+	$Fill.color = fill_color
 	$Fill.position = Vector2(border_width, border_width)
 
 

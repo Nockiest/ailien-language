@@ -1,6 +1,6 @@
 class_name ObjectContainerManager extends Node2D
 
- 
+signal objects_changed(objects)
 # Function to receive a node and send it to the appropriate container
 func add_child_node(node: Node) -> void:
 	$ObjectContainer.recieve_child_node(node)
@@ -8,7 +8,6 @@ func add_child_node(node: Node) -> void:
 # Function to retrieve an object from the appropriate container
 func retrieve_object(  object_name: String) -> Node:
 	# Retrieve the object from the container based on the name
-	print("retrieving ", object_name)
 	return $ObjectContainer  .retrieve_child_node_by_name(object_name)
 	
 func is_container_full( ) -> bool: 
@@ -29,3 +28,7 @@ func retrieve_container_content():
 #		_:
 #			printerr("Unknown container type")
 #			return entity_container
+
+
+func _on_object_container_objects_changed(objects) -> void:
+	emit_signal("objects_changed", objects)

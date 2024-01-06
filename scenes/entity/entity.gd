@@ -5,7 +5,6 @@ extends Area2D
 @export var movementComponent: MomvementComponent
 @export var healthComponent: HealthComponent
 @export var deathComponent: DeathComponent
-@export var weaponComponent: RangedWeapon
 @export var collisionHandler: CollisionHandler
  
 var desired_size: Vector2 = Globals.tile_size
@@ -13,11 +12,9 @@ var is_hovered: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
- 
-	var scale_factor: Vector2 = Vector2.ZERO
 	if $Sprite2D.texture and $Sprite2D.texture.get_size() != Vector2.ZERO:
 		var texture_size: Vector2 = $Sprite2D.texture.get_size()
-		scale_factor = desired_size / texture_size
+		var scale_factor = desired_size / texture_size
 		scale = scale_factor
 	else:
 		print_debug("Sprite texture is not set or has zero size")

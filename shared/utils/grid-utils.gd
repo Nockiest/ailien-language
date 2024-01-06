@@ -1,11 +1,11 @@
 extends Node
-func calculate_tiles_in_path(position: Vector2i, direction: DirectionList.Direction, squares: int, goal_position: Vector2i) -> Array[Vector2i]:
+func calculate_tiles_in_path(position: Vector2i, direction: DirectionList.Direction, squares: int, goal_position: Vector2i = Vector2i(0, 0)) -> Array[Vector2i]:
 	var tile_coordinates: Array[Vector2i] = []
 
 	var current_position: Vector2i = position
 
-	# Update the tile coordinates based on the direction until reaching the goal position
-	while current_position != goal_position:
+	# Update the tile coordinates based on the direction until reaching the goal position (if provided)
+	while goal_position == Vector2i(0, 0) or current_position != goal_position:
 		# Add the current position to the array
 		tile_coordinates.append(current_position)
 
@@ -37,6 +37,7 @@ func calculate_tiles_in_path(position: Vector2i, direction: DirectionList.Direct
 			break
 
 	return tile_coordinates
+
 	
 func get_movement_direction(from, to) -> DirectionList.Direction:
 	var direction: DirectionList.Direction
