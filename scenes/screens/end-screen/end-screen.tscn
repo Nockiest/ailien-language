@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://ccffak0ja3r7h"]
+[gd_scene load_steps=4 format=3 uid="uid://ccffak0ja3r7h"]
 
 [ext_resource type="Script" path="res://scenes/screens/end-screen/end-screen.gd" id="1_jt530"]
+[ext_resource type="Texture2D" uid="uid://dmo7faxfwd3h" path="res://assets/images/cell.png" id="2_nk603"]
+[ext_resource type="Texture2D" uid="uid://btfkrk4f7bqa2" path="res://assets/images/victory-screen.png" id="2_s72vp"]
 
 [node name="end-screen" type="Control"]
 layout_mode = 3
@@ -11,7 +13,20 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_jt530")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="victoryscreen" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = -188.0
+offset_right = 2.0
+offset_bottom = 188.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_s72vp")
+
+[node name="losescreen" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -20,36 +35,66 @@ offset_left = 2.0
 offset_right = 2.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.717647, 0.12549, 0.12549, 1)
+texture = ExtResource("2_nk603")
 
-[node name="Label" type="Label" parent="."]
+[node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -11.5
-offset_right = 20.0
-offset_bottom = 11.5
+offset_left = -150.0
+offset_top = -20.0
+offset_right = 150.0
+offset_bottom = 280.0
 grow_horizontal = 2
 grow_vertical = 2
+color = Color(1, 1, 1, 0.466667)
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="ColorRect"]
+layout_mode = 0
+offset_right = 298.0
+offset_bottom = 181.0
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="Label" type="RichTextLabel" parent="ColorRect/VBoxContainer2"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
 text = "GAME ENDED"
+autowrap_mode = 2
 
-[node name="Button" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -74.0
-offset_top = 40.0
-offset_right = 77.0
-offset_bottom = 71.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Button" type="Button" parent="ColorRect/VBoxContainer2"]
+layout_mode = 2
 text = "Go To Start Screen"
 
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ColorRect/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "STATS"
+horizontal_alignment = 2
+vertical_alignment = 3
+
+[node name="TakenTurns" type="Label" parent="ColorRect/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Turns Needed:"
+
+[node name="BestTurns" type="Label" parent="ColorRect/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Record:
+"
+
+[node name="RecordAnnouncer" type="RichTextLabel" parent="ColorRect/VBoxContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+
+[connection signal="pressed" from="ColorRect/VBoxContainer2/Button" to="." method="_on_button_pressed"]

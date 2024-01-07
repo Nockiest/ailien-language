@@ -17,7 +17,6 @@ func _on_object_container_manager_objects_changed(objects) -> void:
 
 	# If both Player and Relic are present, trigger the game won condition
 	if player_found and relic_found:
-		print("GAME WON")
-		get_tree().get_root().get_node("Map").end_game()
+		get_tree().get_root().get_node("Map").end_game(true)
 
  

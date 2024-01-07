@@ -24,7 +24,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="ColorRect" type="ColorRect" parent="MovementAnouncer"]
-custom_minimum_size = Vector2(100, 0)
+custom_minimum_size = Vector2(400, 110)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -52,5 +52,5 @@ offset_bottom = 43.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 60
-text = "TEST"
+theme_override_font_sizes/font_size = 90
+text = "UP-LEFT"

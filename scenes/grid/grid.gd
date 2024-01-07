@@ -41,8 +41,10 @@ func place_entities( ):
 	while placed_aliens < aliens_amount  :
 		var random_position = Vector2i(randi() % Globals.grid_size.x, randi() % Globals.grid_size.y)
 		var random_tile = GridUtils.get_tile_from_coors(random_position)
-		print(random_position,random_tile)
 		# Check if the tile is empty (no player, relic, or other alien)
+		if abs( random_position.x -player_starting_position.x) <=  2 and abs( random_position.y -player_starting_position.y) <=  2:
+			continue
+			
 		if not random_tile.objectContainerManager.retrieve_container_content().size() > 0:
 			var alien = Globals.alien_scene.instantiate() as Alien
 			random_tile.get_node("ObjectContainerManager").add_child_node(alien)
@@ -77,8 +79,7 @@ func move_entity_to_validated_position(from_container_coors, to_container_coors:
 	if to_container_coors == from_container_coors:
 		printerr("you want to move to the same position as before")
 		return
-	# Get the current parent
-	print("moving ", from_container_coors, to_container_coors)
+ 
 	var tile = GridUtils.get_tile_from_coors(to_container_coors)
 	entity.get_parent().remove_child_node(entity)
 	tile.get_node("ObjectContainerManager").add_child_node(entity)

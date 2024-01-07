@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dklbm71pdn42m"]
+[gd_scene load_steps=24 format=3 uid="uid://dklbm71pdn42m"]
 
 [ext_resource type="Script" path="res://scenes/screens/map/map.gd" id="1_711fl"]
 [ext_resource type="PackedScene" uid="uid://dxf7jcwxe4qbc" path="res://scenes/grid/grid.tscn" id="2_2i8to"]
@@ -6,7 +6,20 @@
 [ext_resource type="Texture2D" uid="uid://dqd3ln50p4xd3" path="res://scenes/entity/player/frog-mouth-helm.png" id="4_0iwby"]
 [ext_resource type="PackedScene" uid="uid://c2w6kd6wfit8" path="res://scenes/camera/camera.tscn" id="4_kpofh"]
 [ext_resource type="Script" path="res://scenes/screens/map/Tutorial.gd" id="5_52uv5"]
-[ext_resource type="Texture2D" uid="uid://o1jqvpqd1dl2" path="res://scenes/entity/alien/alien-stare.png" id="5_mmw06"]
+[ext_resource type="PackedScene" uid="uid://dsm0lhjkutjxc" path="res://shared/components/random_music_player/random-music-player.tscn" id="8_f5yuk"]
+[ext_resource type="Script" path="res://scenes/screens/map/RecordTurns.gd" id="8_s5tgd"]
+[ext_resource type="Texture2D" uid="uid://becjxsfoag4lg" path="res://assets/images/video-camera.png" id="8_wy3mk"]
+[ext_resource type="Texture2D" uid="uid://fuudnxs4np15" path="res://scenes/structures/open-treasure-chest.png" id="9_24m5f"]
+[ext_resource type="Texture2D" uid="uid://c6to0viumd0xs" path="res://assets/images/image (4).png" id="9_ao25m"]
+[ext_resource type="AudioStream" uid="uid://cy8bvixmmnk3c" path="res://assets/music/main-theme/alien-main-theme.mp3" id="9_mwdtf"]
+[ext_resource type="Texture2D" uid="uid://b18u58pbkwp0v" path="res://assets/images/treasure-map.png" id="9_tvbqk"]
+[ext_resource type="AudioStream" uid="uid://07sc2dgyxi2c" path="res://assets/music/main-theme/ES_There Is No Sequel - Philip Ayers.mp3" id="10_3dpl7"]
+[ext_resource type="Texture2D" uid="uid://brys5sj73dibq" path="res://scenes/entity/alien/metroid.png" id="10_lcmrw"]
+[ext_resource type="Texture2D" uid="uid://ka1g46wg8asj" path="res://assets/images/alien closeup.png" id="11_4ndi7"]
+[ext_resource type="Texture2D" uid="uid://inigq5sukm0k" path="res://assets/images/Tutorial-movement.png" id="11_c807y"]
+[ext_resource type="Texture2D" uid="uid://ckje7106a4yp6" path="res://assets/images/suffle.png" id="12_hv7ib"]
+[ext_resource type="Texture2D" uid="uid://dxxn0bsw6nrnc" path="res://assets/images/mouse-left-button.svg" id="16_fgtme"]
+[ext_resource type="Texture2D" uid="uid://dybdb0g4nmdbl" path="res://assets/images/mouse-right-button-svgrepo-com.svg" id="17_u6dru"]
 
 [sub_resource type="Animation" id="Animation_nma60"]
 resource_name = "slide"
@@ -29,45 +42,57 @@ _data = {
 "slide": SubResource("Animation_nma60")
 }
 
+[sub_resource type="AudioStream" id="AudioStream_dmt1i"]
+
 [node name="Map" type="Node2D" groups=["map"]]
 script = ExtResource("1_711fl")
 
 [node name="Grid" parent="." instance=ExtResource("2_2i8to")]
-position = Vector2(217, 192)
-relic_start_position = Vector2i(0, 1)
+position = Vector2(73, -162)
+relic_start_position = Vector2i(5, 2)
+aliens_amount = 15
 
 [node name="DebugWindow" parent="." instance=ExtResource("3_4xq53")]
+visible = false
 
-[node name="Stats" type="Control" parent="."]
+[node name="camera" parent="." instance=ExtResource("4_kpofh")]
+position = Vector2(574, 323.815)
+scale = Vector2(50.5734, -172.146)
+zoom = Vector2(0.55, 0.55)
+speed = 400
+zoom_speed = 0.6
+min_zoom = 0.4
+max_zoom = 3
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Stats" type="Control" parent="CanvasLayer"]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Stats"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Stats"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+theme_override_constants/separation = 1
 
-[node name="ElapsedTurns" type="Label" parent="Stats/VBoxContainer"]
+[node name="RecordTurns" type="Label" parent="CanvasLayer/Stats/VBoxContainer" groups=["save"]]
 layout_mode = 2
+text = "x"
+script = ExtResource("8_s5tgd")
 
-[node name="camera" parent="." instance=ExtResource("4_kpofh")]
-position = Vector2(574, 327)
-speed = 400
-zoom_speed = 0.6
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="ElapsedTurns" type="Label" parent="CanvasLayer/Stats/VBoxContainer"]
+layout_mode = 2
+text = "
+"
 
 [node name="Tutorial" type="Control" parent="CanvasLayer"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 463.0
-offset_top = 4.0
-offset_right = 463.0
-offset_bottom = 4.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 0
@@ -75,94 +100,219 @@ script = ExtResource("5_52uv5")
 metadata/_edit_use_anchors_ = true
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer/Tutorial"]
-layout_mode = 0
-offset_left = 142.0
-offset_top = -2.0
-offset_right = 822.0
-offset_bottom = 644.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 color = Color(0.517647, 0.427451, 0.290196, 1)
 
 [node name="Label" type="Label" parent="CanvasLayer/Tutorial/ColorRect"]
-layout_mode = 0
-offset_left = 306.0
-offset_top = 40.0
-offset_right = 383.0
-offset_bottom = 66.0
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -38.5
+offset_right = 38.5
+offset_bottom = 26.0
+grow_horizontal = 2
 text = "TUTORIAL"
 
-[node name="UnitDescription" type="VBoxContainer" parent="CanvasLayer/Tutorial/ColorRect"]
-custom_minimum_size = Vector2(100, 500)
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Tutorial/ColorRect"]
 layout_mode = 1
-offset_left = 4.0
-offset_top = 107.0
-offset_right = 508.0
-offset_bottom = 607.0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -506.0
+offset_top = 75.0
+offset_right = 506.0
+offset_bottom = 575.0
+grow_horizontal = 2
+theme_override_constants/separation = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Tutorial/ColorRect/UnitDescription"]
+[node name="UnitDescription2" type="VBoxContainer" parent="CanvasLayer/Tutorial/ColorRect/HBoxContainer"]
+custom_minimum_size = Vector2(100, 500)
 layout_mode = 2
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Tutorial/ColorRect/UnitDescription/HBoxContainer"]
-custom_minimum_size = Vector2(100, 100)
+[node name="HBoxContainer3" type="HBoxContainer" parent="CanvasLayer/Tutorial/ColorRect/HBoxContainer/UnitDescription2"]
+custom_minimum_size = Vector2(0, 105)
 layout_mode = 2
-color = Color(0.592157, 0.164706, 0.0313726, 1)
+theme_override_constants/separation = 3
 
-[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Tutorial/ColorRect/UnitDescription/HBoxContainer"]
-custom_minimum_size = Vector2(400, 0)
-layout_mode = 2
-text = "This is your starting position. Once you take the relic, return here to win the game"
-
-[node name="HBoxContainer3" type="HBoxContainer" parent="CanvasLayer/Tutorial/ColorRect/UnitDescription"]
-layout_mode = 2
-
-[node name="ColorRect" type="TextureRect" parent="CanvasLayer/Tutorial/ColorRect/UnitDescription/HBoxContainer3"]
+[node name="ColorRect" type="TextureRect" parent="CanvasLayer/Tutorial/ColorRect/HBoxContainer/UnitDescription2/HBoxContainer3"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 texture = ExtResource("4_0iwby")
 expand_mode = 1
 
-[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Tutorial/ColorRect/UnitDescription/HBoxContainer3"]
-custom_minimum_size = Vector2(400, 0)
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Tutorial/ColorRect/HBoxContainer/UnitDescription2/HBoxContainer3"]
+custom_minimum_size = Vector2(400.785, 0)
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 14
-text = "This is you, the fearless explorer. Find the treasure, avoid the aliens and get back out of the tomb through the tile where you have started"
+bbcode_enabled = true
+text = "[b]Player:[/b]
+This is you, the fearless explorer. 
+You can walk in the 4 main directions (up,down,left,right)
+to move click your unit and move it to a neighboring field
+to skip a move right click anywhere"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/Tutorial/ColorRect/UnitDescription"]
+[node name="Camera" type="HBoxContainer" parent="CanvasLayer/Tutorial/ColorRect/HBoxContainer/UnitDescription2"]
+custom_minimum_size = Vector2(0, 105)
 layout_mode = 2
+theme_override_constants/separation = 3
 
-[node name="ColorRect" type="TextureRect" parent="CanvasLayer/Tutorial/ColorRect/UnitDescription/HBoxContainer2"]
+[node name="ColorRect" type="TextureRect" parent="CanvasLayer/Tutorial/ColorRect/HBoxContainer/UnitDescription2/Camera"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
-texture = ExtResource("5_mmw06")
+texture = ExtResource("8_wy3mk")
 expand_mode = 1
 
-[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Tutorial/ColorRect/UnitDescription/HBoxContainer2"]
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Tutorial/ColorRect/HBoxContainer/UnitDescription2/Camera"]
+custom_minimum_size = Vector2(400.785, 0)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 14
+bbcode_enabled = true
+text = "[b]Camera:[/b]
+Move the camera using WASD
+Zoom in and out using E and Q respectively"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Tutorial/ColorRect/HBoxContainer/UnitDescription2"]
+layout_mode = 2
+
+[node name="ColorRect" type="TextureRect" parent="CanvasLayer/Tutorial/ColorRect/HBoxContainer/UnitDescription2/HBoxContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+texture = ExtResource("9_24m5f")
+expand_mode = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Tutorial/ColorRect/HBoxContainer/UnitDescription2/HBoxContainer"]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 14
-text = "Treasure is guarded by the aliens. They communicate their next moves with each other through alien language. Every word has different meaning. If you decipfer it you can predict their next moves. 
-Aliens kill you when they stumble upon you"
+bbcode_enabled = true
+text = "[b]Objective:[/b]
+[b]1: [/b]Navigate to the treasure
+[b]2: [/b]Get back to the red square
+[b]3: [/b]Do not get caught"
 
-[node name="HBoxContainer4" type="BoxContainer" parent="CanvasLayer/Tutorial/ColorRect/UnitDescription"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/Tutorial/ColorRect/HBoxContainer/UnitDescription2"]
 layout_mode = 2
-vertical = true
 
-[node name="ColorRect" type="Label" parent="CanvasLayer/Tutorial/ColorRect/UnitDescription/HBoxContainer4"]
-custom_minimum_size = Vector2(100, 10)
+[node name="Control" type="Control" parent="CanvasLayer/Tutorial/ColorRect/HBoxContainer/UnitDescription2/HBoxContainer2"]
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
-text = "Controls"
 
-[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Tutorial/ColorRect/UnitDescription/HBoxContainer4"]
-custom_minimum_size = Vector2(400, 100)
+[node name="ColorRect" type="TextureRect" parent="CanvasLayer/Tutorial/ColorRect/HBoxContainer/UnitDescription2/HBoxContainer2/Control"]
 layout_mode = 2
-text = "Left click: Select Your player
-Second Left Click: Click on a tile next to you to move"
+offset_right = 100.0
+offset_bottom = 100.0
+texture = ExtResource("9_tvbqk")
+expand_mode = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Tutorial/ColorRect/HBoxContainer/UnitDescription2/HBoxContainer2"]
+custom_minimum_size = Vector2(400, 175)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 14
+bbcode_enabled = true
+text = "[b]Navigation Strategy:[/b]
+Observe the aliens' movements and listen to their phrases carefully. Identify patterns and correlations between their words and their actions. Use this knowledge to predict their next moves and plan your own strategy."
+
+[node name="UnitDescription" type="VBoxContainer" parent="CanvasLayer/Tutorial/ColorRect/HBoxContainer"]
+custom_minimum_size = Vector2(100, 500)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="CanvasLayer/Tutorial/ColorRect/HBoxContainer/UnitDescription"]
+custom_minimum_size = Vector2(0, 105)
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="ColorRect" type="TextureRect" parent="CanvasLayer/Tutorial/ColorRect/HBoxContainer/UnitDescription/HBoxContainer3"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+texture = ExtResource("10_lcmrw")
+expand_mode = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Tutorial/ColorRect/HBoxContainer/UnitDescription/HBoxContainer3"]
+custom_minimum_size = Vector2(400.785, 0)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 14
+bbcode_enabled = true
+text = "[b]Aliens:[/b]
+Watch out for those guards!
+They can move in all 8 directions every turn
+They have very bad eyesight and have to bumb into you to notice you"
+
+[node name="Camera" type="HBoxContainer" parent="CanvasLayer/Tutorial/ColorRect/HBoxContainer/UnitDescription"]
+custom_minimum_size = Vector2(0, 105)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 3
+
+[node name="ColorRect" type="TextureRect" parent="CanvasLayer/Tutorial/ColorRect/HBoxContainer/UnitDescription/Camera"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+texture = ExtResource("11_4ndi7")
+expand_mode = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Tutorial/ColorRect/HBoxContainer/UnitDescription/Camera"]
+custom_minimum_size = Vector2(400.785, 0)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 14
+bbcode_enabled = true
+text = "[b]Ailien Language:[/b]
+Aliens communicate their next moves using a unique language, with each word corresponding to a specific direction (e.g., up, down, left, right, forward,  up-left, up-right, down-left, down-right)."
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Tutorial/ColorRect/HBoxContainer/UnitDescription"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 20.0
+theme_override_constants/separation = 5
+
+[node name="ColorRect2" type="TextureRect" parent="CanvasLayer/Tutorial/ColorRect/HBoxContainer/UnitDescription/HBoxContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+texture = ExtResource("11_c807y")
+expand_mode = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Tutorial/ColorRect/HBoxContainer/UnitDescription/HBoxContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 14
+bbcode_enabled = true
+text = "[b]Colors Indication:[/b]
+The colors only serve to make the text more readable; they do not affect the meaning of the words.
+In this case blue means down so you shouldnt move to the bottom-left field"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/Tutorial/ColorRect/HBoxContainer/UnitDescription"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="CanvasLayer/Tutorial/ColorRect/HBoxContainer/UnitDescription/HBoxContainer2"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="ColorRect" type="TextureRect" parent="CanvasLayer/Tutorial/ColorRect/HBoxContainer/UnitDescription/HBoxContainer2/Control"]
+layout_mode = 2
+offset_right = 100.0
+offset_bottom = 100.0
+texture = ExtResource("12_hv7ib")
+expand_mode = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Tutorial/ColorRect/HBoxContainer/UnitDescription/HBoxContainer2"]
+custom_minimum_size = Vector2(400, 175)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 14
+bbcode_enabled = true
+text = "[b]Randomized Language:[/b]
+In each game, the alien language is randomized, ensuring a fresh challenge and strategic thinking every time."
 
 [node name="Button" type="Button" parent="CanvasLayer/Tutorial"]
-layout_mode = 0
-offset_left = 150.0
-offset_top = 4.0
-offset_right = 214.0
-offset_bottom = 35.0
+layout_mode = 1
+offset_left = 25.0
+offset_top = 25.0
+offset_right = 89.0
+offset_bottom = 56.0
 text = "Hide "
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Tutorial"]
@@ -170,5 +320,65 @@ autoplay = "slide"
 libraries = {
 "": SubResource("AnimationLibrary_4fl17")
 }
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer"]
+modulate = Color(1, 1, 1, 0.0431373)
+z_index = -1
+position = Vector2(578.938, 312)
+scale = Vector2(1.12708, 0.813965)
+texture = ExtResource("9_ao25m")
+
+[node name="RandomMusicPplayer" parent="." instance=ExtResource("8_f5yuk")]
+sound_list = Array[AudioStream]([ExtResource("9_mwdtf"), ExtResource("10_3dpl7"), SubResource("AudioStream_dmt1i")])
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -449.0
+offset_top = -121.0
+offset_right = -146.0
+offset_bottom = 278.0
+color = Color(1, 1, 1, 0.341176)
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -443.0
+offset_top = -117.0
+offset_right = -362.0
+offset_bottom = -29.0
+texture = ExtResource("16_fgtme")
+expand_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+offset_left = -448.0
+offset_top = 7.0
+offset_right = -361.0
+offset_bottom = 106.0
+texture = ExtResource("17_u6dru")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="."]
+offset_left = -353.0
+offset_top = -118.0
+offset_right = -150.0
+offset_bottom = 220.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Left click to move
+
+
+
+
+Right  click to stay in place
+
+
+
+
+Q and E to move the
+ camera"
+
+[node name="TextureRect3" type="TextureRect" parent="."]
+offset_left = -443.0
+offset_top = 137.0
+offset_right = -362.0
+offset_bottom = 225.0
+texture = ExtResource("8_wy3mk")
+expand_mode = 1
 
 [connection signal="pressed" from="CanvasLayer/Tutorial/Button" to="CanvasLayer/Tutorial" method="_on_button_pressed"]

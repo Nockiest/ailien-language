@@ -10,16 +10,19 @@ config_version=5
 
 [application]
 
-config/name="FOrtresZ"
-run/main_scene="res://scenes/screens/map/map.tscn"
+config/name="Cosmic Caper"
+config/description="You are a fearless knight (or a robber really), known for the greatest heists across the galaxy. This mission will be your daily bread. Get in, take the bounty, get out. But hold on! There are gguards everywhere and they speak an ailien language. They dont have good eyesight so they have to announce to their colleagues where they are heading before they move. Otherwise they would bump into each other. Their language is quite simple. Maybe if you managed to translate it, you could predict thier moves and capture the treasure easily! "
+run/main_scene="res://scenes/screens/start-screen/start-screen.tscn"
 config/features=PackedStringArray("4.1", "Mobile")
-config/icon="res://assets/images/icon.svg"
+boot_splash/image="res://assets/images/knight without helm.png"
+config/icon="res://assets/images/knight without helm.png"
 
 [autoload]
 
 Globals="*res://shared/globals/globals.gd"
 Utils="*res://shared/utils/utils.gd"
 GridUtils="*res://shared/utils/grid-utils.gd"
+AilienNames="*res://shared/globals/ailien_names.gd"
 
 [input]
 

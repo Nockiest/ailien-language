@@ -14,13 +14,11 @@ signal pickedUp(object)
 
 
 func handle_collision(object):
-	print("handling collision", object)
 #	print("handling", object, owner, collision_reaction)
 	if object == owner:
-		print(owner, object, "they are the same")
+		return collision_reaction ######two return statements
  
 	elif collision_reaction == collision_reactions.SELF_DESTRUCT:
-		print("self destructing", owner)
 		owner.deathComponent.kill_owner()
 	elif collision_reaction == collision_reactions.GET_PICKED_UP:
 		emit_signal("pickedUp", owner)

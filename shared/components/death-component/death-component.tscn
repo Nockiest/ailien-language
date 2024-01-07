@@ -1,6 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://bnkur2kld0tc4"]
+[gd_scene load_steps=3 format=3 uid="uid://bnkur2kld0tc4"]
 
 [ext_resource type="Script" path="res://shared/components/death-component/death-component.gd" id="1_3dmkl"]
+[ext_resource type="AudioStream" uid="uid://bijddle47fb2v" path="res://assets/music/sfx/you-lost.mp3" id="2_s3xlm"]
 
 [node name="DeathComponent" type="Node2D"]
 script = ExtResource("1_3dmkl")
+
+[node name="DeathSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_s3xlm")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -43,7 +43,6 @@ func is_tile_empty(destination: Vector2i ) -> bool:
 	
 	# If the tile node is found, ask ObjectContainerManager if it's empty
 	if tile_node:
-		print( tile_node.get_node("ObjectContainerManager").retrieve_container_content())
 		return tile_node.get_node("ObjectContainerManager").retrieve_container_content().size() == 0
 
 	

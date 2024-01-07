@@ -34,8 +34,6 @@ func spawn_bullet():
 	duplicated_node.show()
  
 	var entity = Utils.find_ancestor_by_factor(2, self)
-#	var duplicated_bullet_direction = entity.directionHandler
-	print(duplicated_node, duplicated_node is Projectile, 	Utils.find_ancestor_by_factor(5, self).get_node("ObjectContainerManager"))
 	Utils.find_ancestor_by_factor(5, self).get_node("ObjectContainerManager").add_child_node(duplicated_node)
 
 	# instantiate a bullet

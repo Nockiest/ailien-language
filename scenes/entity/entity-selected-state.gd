@@ -3,14 +3,16 @@ extends State
 
 
 # Called when the node enters the scene tree for the first time.
+@onready var original_scale  
+
 func enter(_msg := {}):
-	owner.scale = owner.scale*1.1
+	original_scale = owner.scale
+	owner.scale = original_scale * 1.1
 	Globals.selected_entity = owner
-	
+
 func exit():
- 
 	Globals.selected_entity = null
-	owner.scale = owner.scale*0.9 
+	owner.scale = original_scale
 	
  
 func update(_delta):
@@ -26,10 +28,9 @@ func update(_delta):
 		state_machine.transition_to("Idle")
 	elif Input.is_action_just_pressed("right_mouse_click") :
 #		healthComponent.take_hit(1)
-		owner.weaponComponent.attack()
-	
-
- 
+		call_deferred_thread_group("move_aliens")
+		state_machine.transition_to("Idle")
+		$"../../AudioFiles/NextTurn".play()
  
 
 func _on_movement_component_moved(_from, _to) -> void:

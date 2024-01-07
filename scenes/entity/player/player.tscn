@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://i5hi82tbqcem"]
+[gd_scene load_steps=14 format=3 uid="uid://i5hi82tbqcem"]
 
 [ext_resource type="Script" path="res://scenes/entity/player/player.gd" id="1_aluna"]
 [ext_resource type="PackedScene" uid="uid://bnkur2kld0tc4" path="res://shared/components/death-component/death-component.tscn" id="2_1nmdy"]
@@ -9,7 +9,9 @@
 [ext_resource type="Texture2D" uid="uid://dqd3ln50p4xd3" path="res://scenes/entity/player/frog-mouth-helm.png" id="7_jq74p"]
 [ext_resource type="Script" path="res://scenes/entity/entity-state-machine.gd" id="9_uohiw"]
 [ext_resource type="Script" path="res://scenes/entity/entity-idle-state.gd" id="10_68t6a"]
+[ext_resource type="AudioStream" uid="uid://cil3a4tyy4a3f" path="res://assets/music/sfx/short-footstep.mp3" id="11_oxs8d"]
 [ext_resource type="Script" path="res://scenes/entity/entity-selected-state.gd" id="11_yxckm"]
+[ext_resource type="AudioStream" uid="uid://bi31ct56dho6n" path="res://assets/music/sfx/error.mp3" id="12_nbeul"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wamhp"]
 size = Vector2(496, 496)
@@ -52,8 +54,19 @@ script = ExtResource("10_68t6a")
 [node name="Selected" type="Node" parent="StateMachine"]
 script = ExtResource("11_yxckm")
 
+[node name="AudioFiles" type="Node" parent="."]
+
+[node name="FootStep" type="AudioStreamPlayer" parent="AudioFiles"]
+stream = ExtResource("11_oxs8d")
+
+[node name="Error" type="AudioStreamPlayer" parent="AudioFiles"]
+stream = ExtResource("12_nbeul")
+
+[node name="NextTurn" type="AudioStreamPlayer" parent="AudioFiles"]
+
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
 [connection signal="tree_exited" from="." to="." method="_on_tree_exited"]
 [connection signal="moved" from="MovementComponent" to="." method="_on_movement_component_moved"]
+[connection signal="moved" from="MovementComponent" to="direction-handler-comp" method="_on_movement_component_moved"]
 [connection signal="moved" from="MovementComponent" to="StateMachine/Selected" method="_on_movement_component_moved"]

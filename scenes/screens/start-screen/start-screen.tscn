@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cmmaosrr7vlv2"]
+[gd_scene load_steps=4 format=3 uid="uid://cmmaosrr7vlv2"]
 
 [ext_resource type="Script" path="res://scenes/screens/start-screen/start-screen.gd" id="1_drdhw"]
-[ext_resource type="Texture2D" uid="uid://pf1vui7hek1r" path="res://scenes/screens/start-screen/image.png" id="1_o7e63"]
+[ext_resource type="Texture2D" uid="uid://bbwxc11ae828m" path="res://assets/images/image (3).png" id="2_y31qi"]
+[ext_resource type="AudioStream" uid="uid://kv6wmbawvvgg" path="res://assets/music/main-theme/ES_Eupheme - Ben Elson.mp3" id="3_j8cmk"]
 
 [node name="start-screen" type="Control"]
 layout_mode = 3
@@ -12,30 +13,143 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_drdhw")
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="description" type="Control" parent="."]
+visible = false
+z_index = 1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_o7e63")
 
-[node name="Label" type="Label" parent="."]
+[node name="ColorRect" type="ColorRect" parent="description"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Return" type="Button" parent="description"]
 layout_mode = 0
-offset_left = 118.0
-offset_top = 218.0
-offset_right = 567.0
-offset_bottom = 268.0
+offset_right = 61.0
+offset_bottom = 31.0
+text = "Return"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="description"]
+custom_minimum_size = Vector2(750, 400)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -375.0
+offset_top = 50.0
+offset_right = 375.0
+offset_bottom = 450.0
+grow_horizontal = 2
+text = "As a seasoned thief, you’ve made a name for yourself across the cosmos, pulling off some of the most audacious heists the galaxy has ever witnessed. Your latest target is a heavily guarded treasure vault, brimming with riches beyond your wildest dreams. The only problem? The guards are a motley crew of aliens, with poor eyesight and a penchant for communicating in a guttural, unfamiliar tongue.
+
+To avoid detection, you need to decipher their language, learning their basic commands and movements. Their communication style might seem chaotic, but with a keen ear and a bit of linguistic prowess, you can decode their intentions, predict their actions, and navigate the labyrinthine corridors without raising an alarm.
+
+Once you’ve mastered their language, you’ll be able to move like a ghost through the fortress, outsmarting the guards and pilfering the treasure with ease. The galaxy will marvel at your ingenuity, and your reputation as the ultimate interstellar thief will be cemented forever."
+
+[node name="Credits" type="RichTextLabel" parent="description"]
+custom_minimum_size = Vector2(750, 150)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+bbcode_enabled = true
+text = "[b]Credits:[/b]
+Background: https://stablediffusionweb.com/
+Soundract&SFX: https://www.epidemicsound.com/
+Sprites: https://game-icons.net/ "
+
+[node name="Me" type="RichTextLabel" parent="description"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -62.0
+offset_top = -48.0
+offset_right = -22.0
+offset_bottom = -25.0
+grow_horizontal = 0
+grow_vertical = 0
+bbcode_enabled = true
+text = "[b]By:[/b] AndWebDev
+[b]Itch.io:[/b] Nockiest"
+
+[node name="base-screen" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="base-screen"]
+layout_mode = 1
+offset_right = 1111.0
+offset_bottom = 1094.0
+texture = ExtResource("2_y31qi")
+
+[node name="ColorRect" type="ColorRect" parent="base-screen"]
+custom_minimum_size = Vector2(500, 300)
+layout_mode = 0
+offset_left = 160.0
+offset_top = 149.0
+offset_right = 660.0
+offset_bottom = 449.0
+color = Color(0, 0, 0, 0.345098)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="base-screen/ColorRect"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -113.0
+offset_top = 50.0
+offset_right = 113.0
+offset_bottom = 135.0
+grow_horizontal = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="base-screen/ColorRect/VBoxContainer"]
+layout_mode = 2
 theme_override_font_sizes/font_size = 34
-text = "Treasure hunter and aliens"
+text = "Cosmic Caper"
+horizontal_alignment = 1
 
-[node name="Button" type="Button" parent="."]
-layout_mode = 0
-offset_left = 282.0
-offset_top = 285.0
-offset_right = 383.0
-offset_bottom = 316.0
+[node name="Button" type="Button" parent="base-screen/ColorRect/VBoxContainer"]
+layout_mode = 2
 text = "Begin Game"
 
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[node name="ShowDescription" type="Button" parent="base-screen/ColorRect/VBoxContainer"]
+layout_mode = 2
+text = "About"
+
+[node name="Control" type="Control" parent="base-screen/ColorRect/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="EndGame" type="Button" parent="base-screen/ColorRect/VBoxContainer"]
+layout_mode = 2
+text = "End Game"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_j8cmk")
+
+[connection signal="pressed" from="description/Return" to="." method="_on_return_pressed"]
+[connection signal="pressed" from="base-screen/ColorRect/VBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="base-screen/ColorRect/VBoxContainer/ShowDescription" to="." method="_on_show_description_pressed"]
+[connection signal="pressed" from="base-screen/ColorRect/VBoxContainer/EndGame" to="." method="_on_end_game_pressed"]

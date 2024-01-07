@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://csneymgfk28x5"]
+[gd_scene load_steps=5 format=3 uid="uid://csneymgfk28x5"]
 
 [ext_resource type="Script" path="res://scenes/structures/relic.gd" id="1_k24gb"]
 [ext_resource type="PackedScene" uid="uid://cbexd0wrvlivc" path="res://shared/components/collision-handler/collision-handler.tscn" id="2_ytxix"]
 [ext_resource type="Texture2D" uid="uid://fuudnxs4np15" path="res://scenes/structures/open-treasure-chest.png" id="3_cb71b"]
+[ext_resource type="AudioStream" uid="uid://5heqnh5wrlat" path="res://assets/music/sfx/treasure-found.mp3" id="4_ukv5b"]
 
 [node name="relic3" type="Area2D" node_paths=PackedStringArray("collisionHandler")]
 script = ExtResource("1_k24gb")
@@ -13,3 +14,10 @@ collision_reaction = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("3_cb71b")
+
+[node name="Audio" type="Node" parent="."]
+
+[node name="PickedUp" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("4_ukv5b")
+
+[connection signal="pickedUp" from="collision-handler" to="." method="_on_collisionhandler_picked_up"]

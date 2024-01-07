@@ -41,6 +41,10 @@ func convert_to_normal_vector(Vector:Vector2i) -> Vector2:
 	var normal_vector: Vector2= Vector
 	return normal_vector 
  
+func show_and_hide(node_to_show, node_to_hide):
+	node_to_show.show()
+	node_to_hide.hide()
+	
 func get_collision_shape_center(area: Area2D, node_name: String= "CollisionShape2D") -> Vector2:
 	if area.get_node(node_name) == null:
 		print("AREA doesnt haVE A COLLISION SHAPE 2D")

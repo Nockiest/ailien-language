@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bdcu3imq3e6t1" path="res://shared/components/health-component/health-component.tscn" id="4_13sjw"]
 [ext_resource type="PackedScene" uid="uid://dtyd3ib3ve340" path="res://shared/components/direction-handler-comp/direction-handler-comp.tscn" id="5_s5cun"]
 [ext_resource type="PackedScene" uid="uid://cbexd0wrvlivc" path="res://shared/components/collision-handler/collision-handler.tscn" id="6_lvmsf"]
-[ext_resource type="Texture2D" uid="uid://o1jqvpqd1dl2" path="res://scenes/entity/alien/alien-stare.png" id="7_yajov"]
+[ext_resource type="Texture2D" uid="uid://brys5sj73dibq" path="res://scenes/entity/alien/metroid.png" id="7_7t307"]
 [ext_resource type="Script" path="res://shared/state-machine/state-machine.gd" id="8_am1uc"]
 [ext_resource type="Script" path="res://scenes/entity/alien/state-machine/alien-idle.gd" id="9_n637l"]
 [ext_resource type="Script" path="res://scenes/entity/entity-selected-state.gd" id="10_l5rlf"]
@@ -41,9 +41,9 @@ valid_max_movement_range = 2.0
 collision_reaction = 4
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(2.99999, -2)
-scale = Vector2(0.958904, 0.857143)
-texture = ExtResource("7_yajov")
+position = Vector2(2.99999, 1.49998)
+scale = Vector2(0.958904, 0.870842)
+texture = ExtResource("7_7t307")
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource("8_am1uc")
@@ -57,3 +57,5 @@ script = ExtResource("10_l5rlf")
 
 [node name="random-move-chooser" parent="." instance=ExtResource("11_ff73r")]
 position = Vector2(-1, -257)
+
+[connection signal="moved" from="MovementComponent" to="direction-handler-comp" method="_on_movement_component_moved"]

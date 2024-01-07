@@ -18,7 +18,6 @@ func _ready():
 		"valid_max_movement_range": valid_max_movement_range
 	}
 func process_movement(from, to):
-	print(from, to, validation_input_data)
 	if $MovementValidator.validate_move(from, to, validation_input_data):
 		var objects_in_from_tile = GridUtils.get_tile_from_coors(from).objectContainerManager.retrieve_container_content()
 		var objects_in_to_tile = GridUtils.get_tile_from_coors(to).objectContainerManager.retrieve_container_content()

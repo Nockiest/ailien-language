@@ -26,4 +26,20 @@ var elapsed_turns := 0:
 	set(value):
 		elapsed_turns = value
 		var map = get_tree().get_first_node_in_group("map")
-		map.get_node("Stats/VBoxContainer/ElapsedTurns").text = "Elapsed Turns: " + str(elapsed_turns)
+		if map:
+			map.get_node("CanvasLayer/Stats/VBoxContainer/ElapsedTurns").text = "Elapsed Turns: " + str(elapsed_turns) + " Turns"
+var record_turns: int = -1
+var game_lost := false
+
+const SAVE_GAME_PATH = "user://savegame.tres"
+ 
+func save_data():
+	var file = FileAccess.open(SAVE_GAME_PATH, FileAccess.WRITE)
+	file.store_var(record_turns)
+	file.close()
+
+func load_data():
+	if FileAccess.file_exists(SAVE_GAME_PATH):
+		var file = FileAccess.open(SAVE_GAME_PATH, FileAccess.READ)
+		record_turns = file.get_var(record_turns)
+		file.close()

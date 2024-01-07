@@ -13,9 +13,6 @@ func _ready() -> void:
 	else:
 		print_debug("Sprite texture is not set or has zero size")
 
- 
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	pass
+func _on_collisionhandler_picked_up(_object) -> void:
+	$Audio/PickedUp.play()
+	scale = Vector2(0.75,0.75)
