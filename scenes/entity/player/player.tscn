@@ -1,0 +1,59 @@
+[gd_scene load_steps=12 format=3 uid="uid://i5hi82tbqcem"]
+
+[ext_resource type="Script" path="res://scenes/entity/player/player.gd" id="1_aluna"]
+[ext_resource type="PackedScene" uid="uid://bnkur2kld0tc4" path="res://shared/components/death-component/death-component.tscn" id="2_1nmdy"]
+[ext_resource type="PackedScene" uid="uid://djape1yn3meth" path="res://shared/components/movement_component/movement-component.tscn" id="3_8s10h"]
+[ext_resource type="PackedScene" uid="uid://bdcu3imq3e6t1" path="res://shared/components/health-component/health-component.tscn" id="4_0jbn1"]
+[ext_resource type="PackedScene" uid="uid://dtyd3ib3ve340" path="res://shared/components/direction-handler-comp/direction-handler-comp.tscn" id="5_nc1sp"]
+[ext_resource type="PackedScene" uid="uid://cbexd0wrvlivc" path="res://shared/components/collision-handler/collision-handler.tscn" id="6_hfxhn"]
+[ext_resource type="Texture2D" uid="uid://dqd3ln50p4xd3" path="res://scenes/entity/player/frog-mouth-helm.png" id="7_jq74p"]
+[ext_resource type="Script" path="res://scenes/entity/entity-state-machine.gd" id="9_uohiw"]
+[ext_resource type="Script" path="res://scenes/entity/entity-idle-state.gd" id="10_68t6a"]
+[ext_resource type="Script" path="res://scenes/entity/entity-selected-state.gd" id="11_yxckm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wamhp"]
+size = Vector2(496, 496)
+
+[node name="Player" type="Area2D" node_paths=PackedStringArray("directionHandler", "stateMachine", "movementComponent", "healthComponent", "deathComponent", "collisionHandler") groups=["player"]]
+script = ExtResource("1_aluna")
+directionHandler = NodePath("direction-handler-comp")
+stateMachine = NodePath("StateMachine")
+movementComponent = NodePath("MovementComponent")
+healthComponent = NodePath("HealthComponent")
+deathComponent = NodePath("DeathComponent")
+collisionHandler = NodePath("collision-handler")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_wamhp")
+
+[node name="DeathComponent" parent="." instance=ExtResource("2_1nmdy")]
+
+[node name="MovementComponent" parent="." instance=ExtResource("3_8s10h")]
+
+[node name="HealthComponent" parent="." instance=ExtResource("4_0jbn1")]
+
+[node name="direction-handler-comp" parent="." instance=ExtResource("5_nc1sp")]
+
+[node name="collision-handler" parent="." instance=ExtResource("6_hfxhn")]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-0.500008, -0.500008)
+scale = Vector2(0.984344, 0.984344)
+texture = ExtResource("7_jq74p")
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("9_uohiw")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("10_68t6a")
+
+[node name="Selected" type="Node" parent="StateMachine"]
+script = ExtResource("11_yxckm")
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="tree_exited" from="." to="." method="_on_tree_exited"]
+[connection signal="moved" from="MovementComponent" to="." method="_on_movement_component_moved"]
+[connection signal="moved" from="MovementComponent" to="StateMachine/Selected" method="_on_movement_component_moved"]

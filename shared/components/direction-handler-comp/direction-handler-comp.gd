@@ -43,6 +43,6 @@ func rotate_parent(direction: DirectionList.Direction) -> void:
 	current_direction = direction
 
  
-func _on_movement_component_2_moved(from, to) -> void:
+func _on_movement_component_moved(from, to) -> void:
 	var direction = GridUtils.get_movement_direction(from, to)
 	rotate_parent(direction)

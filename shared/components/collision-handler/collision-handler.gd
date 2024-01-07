@@ -14,6 +14,7 @@ signal pickedUp(object)
 
 
 func handle_collision(object):
+	print("handling collision", object)
 #	print("handling", object, owner, collision_reaction)
 	if object == owner:
 		print(owner, object, "they are the same")

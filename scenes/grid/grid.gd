@@ -3,11 +3,11 @@ extends Node2D
 
 var grid = []
 @export var relic_start_position:Vector2i = Vector2i(0,0)
-@export var enemies_starting_positons: Array[Vector2i]
+@export var aliens_amount: int
 var player_starting_position: Vector2i = Vector2i(round(Globals.grid_size.x/2)-1, Globals.grid_size.y-1)
 func _ready():
 	initialize_grid()
- 
+	place_entities()
 func initialize_grid():
 	for y in range(Globals.grid_size.y):
 		var row = []
@@ -22,21 +22,37 @@ func initialize_grid():
 			else:
 				tile = create_tile(x, y)
 			row.append(tile)
-			
-			# Check if the current position is a relic starting position
-			if Vector2i(x, y) == relic_start_position:
-				var relic = Globals.relic_scene.instantiate() as Relic
-				tile.get_node("ObjectContainerManager").add_child_node(relic)
-			elif Vector2i(x, y) == player_starting_position:
-				var player = Globals.player_scene.instantiate() as Player
-				tile.get_node("ObjectContainerManager").add_child_node(player)
-			for enemy_position in enemies_starting_positons:
-				if Vector2i(x, y) == enemy_position:
-					var enemy = Globals.alien_scene.instantiate() as Alien
-					tile.get_node("ObjectContainerManager").add_child_node(enemy)
-
 		grid.append(row)
+func place_entities( ):
+	# Place relic
+	var relic_tile = GridUtils.get_tile_from_coors(relic_start_position)
+	var relic = Globals.relic_scene.instantiate() as Relic
+	relic_tile.get_node("ObjectContainerManager").add_child_node(relic)
 
+	# Place player
+	var player_tile = GridUtils.get_tile_from_coors(player_starting_position)
+	var player = Globals.player_scene.instantiate() as Player
+	player_tile.get_node("ObjectContainerManager").add_child_node(player)
+
+	# Place aliens
+	var placed_aliens = 0
+	var max_attempts = 50  # Adjust the maximum attempts as needed
+
+	while placed_aliens < aliens_amount  :
+		var random_position = Vector2i(randi() % Globals.grid_size.x, randi() % Globals.grid_size.y)
+		var random_tile = GridUtils.get_tile_from_coors(random_position)
+		print(random_position,random_tile)
+		# Check if the tile is empty (no player, relic, or other alien)
+		if not random_tile.objectContainerManager.retrieve_container_content().size() > 0:
+			var alien = Globals.alien_scene.instantiate() as Alien
+			random_tile.get_node("ObjectContainerManager").add_child_node(alien)
+			placed_aliens += 1
+
+		# Break the loop if too many attempts are made to avoid infinite loop
+		if placed_aliens >= aliens_amount or max_attempts <= 0:
+			break
+
+		max_attempts -= 1
 
 func create_tile(x, y):
 	var tile = Globals.tile_scene.instantiate() as Area2D

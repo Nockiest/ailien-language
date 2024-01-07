@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://07sc2dgyxi2c"
+path="res://.godot/imported/ES_There Is No Sequel - Philip Ayers.mp3-1033968a08da88f8af687682370b9570.mp3str"
+
+[deps]
+
+source_file="res://assets/music/main-theme/ES_There Is No Sequel - Philip Ayers.mp3"
+dest_files=["res://.godot/imported/ES_There Is No Sequel - Philip Ayers.mp3-1033968a08da88f8af687682370b9570.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

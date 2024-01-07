@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://cxo3lrwtfo3fv"]
+
+[ext_resource type="Script" path="res://scenes/tile/start-tile/start-tile.gd" id="1_77jkm"]
+[ext_resource type="PackedScene" uid="uid://3mjla4smedx2" path="res://scenes/bordered-color-rectangle/bordered-color-rectangle.tscn" id="2_0upp7"]
+[ext_resource type="PackedScene" uid="uid://3u66hjuby3o6" path="res://shared/components/grid-position-tracker/grid-position-tracker.tscn" id="3_o267y"]
+[ext_resource type="PackedScene" uid="uid://cekbll0jp5ddf" path="res://shared/components/entity-container/object-container.tscn" id="4_wytn3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ar1h0"]
+size = Vector2(40, 40)
+
+[node name="StartTile" type="Area2D" node_paths=PackedStringArray("position_tracker", "objectContainerManager") groups=["tiles"]]
+script = ExtResource("1_77jkm")
+position_tracker = NodePath("GridPositionTracker")
+objectContainerManager = NodePath("ObjectContainerManager")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(20, 20)
+shape = SubResource("RectangleShape2D_ar1h0")
+
+[node name="BorderedColorRect" parent="." instance=ExtResource("2_0upp7")]
+fill_color = Color(0.670588, 0.105882, 0.192157, 1)
+
+[node name="GridPositionTracker" parent="." instance=ExtResource("3_o267y")]
+
+[node name="ObjectContainerManager" parent="." instance=ExtResource("4_wytn3")]
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="objects_changed" from="ObjectContainerManager" to="." method="_on_object_container_manager_objects_changed"]

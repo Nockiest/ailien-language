@@ -17,24 +17,24 @@ func validate_move(from: Vector2i, to: Vector2i, validation_input_data: Dictiona
 	if from == to:
 		return false
 	if movement_distance > valid_max_movement_range:
-		print("returning false")
+#		print("returning false")
 		return false
 
 	# Check if the move lies within the grid
 	if to.x < 0 or to.y < 0 or to.x >= grid_size.x or to.y >= grid_size.y:
-		print("returning false")
+#		print("returning false")
 		return false
 		
 	# Check if the movement matches any valid movement pattern
 	for pattern in valid_movement_patterns:
 		if movement_vector == pattern:
-			print("returning true", 1)
+#			print("returning true", 1)
 			return true
 
 	# Translate the movement vector to a direction string
 	var direction = GridUtils.get_movement_direction(to , from)
 	# Check if the direction is valid
-	print("returning true", 1)
+#	print("returning true", 1)
 	return direction in valid_directions
 
 func is_tile_empty(destination: Vector2i ) -> bool:

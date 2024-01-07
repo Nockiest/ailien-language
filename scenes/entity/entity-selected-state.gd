@@ -4,8 +4,7 @@ extends State
 
 # Called when the node enters the scene tree for the first time.
 func enter(_msg := {}):
-#	owner.get_node("Sprite2D").opacity = 0.5
-	owner.scale = owner.scale*1.1 
+	owner.scale = owner.scale*1.1
 	Globals.selected_entity = owner
 	
 func exit():
@@ -31,9 +30,11 @@ func update(_delta):
 	
 
  
+ 
 
-
-func _on_movement_component_2_moved(from, to) -> void:
+func _on_movement_component_moved(_from, _to) -> void:
+	call_deferred_thread_group("move_aliens")
+func move_aliens():
 	var aliens = get_tree().get_nodes_in_group("alien")
 	for alien in aliens:
 		alien.move_alien( ) 

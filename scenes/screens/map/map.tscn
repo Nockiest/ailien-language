@@ -1,0 +1,174 @@
+[gd_scene load_steps=10 format=3 uid="uid://dklbm71pdn42m"]
+
+[ext_resource type="Script" path="res://scenes/screens/map/map.gd" id="1_711fl"]
+[ext_resource type="PackedScene" uid="uid://dxf7jcwxe4qbc" path="res://scenes/grid/grid.tscn" id="2_2i8to"]
+[ext_resource type="PackedScene" uid="uid://7i2s2qp0nlea" path="res://shared/debug-window/debug-window.tscn" id="3_4xq53"]
+[ext_resource type="Texture2D" uid="uid://dqd3ln50p4xd3" path="res://scenes/entity/player/frog-mouth-helm.png" id="4_0iwby"]
+[ext_resource type="PackedScene" uid="uid://c2w6kd6wfit8" path="res://scenes/camera/camera.tscn" id="4_kpofh"]
+[ext_resource type="Script" path="res://scenes/screens/map/Tutorial.gd" id="5_52uv5"]
+[ext_resource type="Texture2D" uid="uid://o1jqvpqd1dl2" path="res://scenes/entity/alien/alien-stare.png" id="5_mmw06"]
+
+[sub_resource type="Animation" id="Animation_nma60"]
+resource_name = "slide"
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 0,
+"values": []
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4fl17"]
+_data = {
+"slide": SubResource("Animation_nma60")
+}
+
+[node name="Map" type="Node2D" groups=["map"]]
+script = ExtResource("1_711fl")
+
+[node name="Grid" parent="." instance=ExtResource("2_2i8to")]
+position = Vector2(217, 192)
+relic_start_position = Vector2i(0, 1)
+
+[node name="DebugWindow" parent="." instance=ExtResource("3_4xq53")]
+
+[node name="Stats" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Stats"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ElapsedTurns" type="Label" parent="Stats/VBoxContainer"]
+layout_mode = 2
+
+[node name="camera" parent="." instance=ExtResource("4_kpofh")]
+position = Vector2(574, 327)
+speed = 400
+zoom_speed = 0.6
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Tutorial" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 463.0
+offset_top = 4.0
+offset_right = 463.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+script = ExtResource("5_52uv5")
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Tutorial"]
+layout_mode = 0
+offset_left = 142.0
+offset_top = -2.0
+offset_right = 822.0
+offset_bottom = 644.0
+color = Color(0.517647, 0.427451, 0.290196, 1)
+
+[node name="Label" type="Label" parent="CanvasLayer/Tutorial/ColorRect"]
+layout_mode = 0
+offset_left = 306.0
+offset_top = 40.0
+offset_right = 383.0
+offset_bottom = 66.0
+text = "TUTORIAL"
+
+[node name="UnitDescription" type="VBoxContainer" parent="CanvasLayer/Tutorial/ColorRect"]
+custom_minimum_size = Vector2(100, 500)
+layout_mode = 1
+offset_left = 4.0
+offset_top = 107.0
+offset_right = 508.0
+offset_bottom = 607.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Tutorial/ColorRect/UnitDescription"]
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Tutorial/ColorRect/UnitDescription/HBoxContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+color = Color(0.592157, 0.164706, 0.0313726, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Tutorial/ColorRect/UnitDescription/HBoxContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+text = "This is your starting position. Once you take the relic, return here to win the game"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="CanvasLayer/Tutorial/ColorRect/UnitDescription"]
+layout_mode = 2
+
+[node name="ColorRect" type="TextureRect" parent="CanvasLayer/Tutorial/ColorRect/UnitDescription/HBoxContainer3"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+texture = ExtResource("4_0iwby")
+expand_mode = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Tutorial/ColorRect/UnitDescription/HBoxContainer3"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 14
+text = "This is you, the fearless explorer. Find the treasure, avoid the aliens and get back out of the tomb through the tile where you have started"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/Tutorial/ColorRect/UnitDescription"]
+layout_mode = 2
+
+[node name="ColorRect" type="TextureRect" parent="CanvasLayer/Tutorial/ColorRect/UnitDescription/HBoxContainer2"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+texture = ExtResource("5_mmw06")
+expand_mode = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Tutorial/ColorRect/UnitDescription/HBoxContainer2"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 14
+text = "Treasure is guarded by the aliens. They communicate their next moves with each other through alien language. Every word has different meaning. If you decipfer it you can predict their next moves. 
+Aliens kill you when they stumble upon you"
+
+[node name="HBoxContainer4" type="BoxContainer" parent="CanvasLayer/Tutorial/ColorRect/UnitDescription"]
+layout_mode = 2
+vertical = true
+
+[node name="ColorRect" type="Label" parent="CanvasLayer/Tutorial/ColorRect/UnitDescription/HBoxContainer4"]
+custom_minimum_size = Vector2(100, 10)
+layout_mode = 2
+text = "Controls"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Tutorial/ColorRect/UnitDescription/HBoxContainer4"]
+custom_minimum_size = Vector2(400, 100)
+layout_mode = 2
+text = "Left click: Select Your player
+Second Left Click: Click on a tile next to you to move"
+
+[node name="Button" type="Button" parent="CanvasLayer/Tutorial"]
+layout_mode = 0
+offset_left = 150.0
+offset_top = 4.0
+offset_right = 214.0
+offset_bottom = 35.0
+text = "Hide "
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Tutorial"]
+autoplay = "slide"
+libraries = {
+"": SubResource("AnimationLibrary_4fl17")
+}
+
+[connection signal="pressed" from="CanvasLayer/Tutorial/Button" to="CanvasLayer/Tutorial" method="_on_button_pressed"]

@@ -24,7 +24,6 @@ func resize(size:Vector2i):
 	var shape = RectangleShape2D.new()
 	shape.extents = size / 2.0  # Extents are half the size of the rectangle
 	$CollisionShape2D.shape = shape
-	var center = Utils.get_collision_shape_center(self)
 	$ObjectContainerManager.position = size / Vector2i(2,2) 
 	$CollisionShape2D.position = size / Vector2i(2,2) 
 
